@@ -58,5 +58,24 @@ namespace Simulator
         {
             get { return $"{Name} [{Level}]"; }
         }
+
+        public void Go(Direction direction)
+        {
+            string whatDirection = direction.ToString().ToLower();
+            Console.WriteLine($"{name} goes {whatDirection}");
+        }
+        public void Go(Direction[] directions)
+        {
+            foreach (Direction direction in directions)
+            {
+                Go(direction);
+            }
+        }
+        public void Go(string directions)
+        {
+            Direction[] directionParse = DirectionParser.Parse(directions);
+            Go(directionParse);
+        }
     }
+
 }
