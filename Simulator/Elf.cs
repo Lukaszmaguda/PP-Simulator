@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using System;
+
+namespace Simulator;
 
 public class Elf : Creature
 {
@@ -7,11 +9,7 @@ public class Elf : Creature
     public int Agility
     {
         get => agility;
-        private set{
-            if (value < 0) agility = 0;
-            else if (value > 10) agility = 10;
-            else agility = value;
-        }
+        private set => agility = Validator.Limiter(value, 0, 10);
     }
 
     public Elf(string name = "Unknown", int level = 1, int agility = 1)
@@ -37,4 +35,5 @@ public class Elf : Creature
             Agility += 1;
         }
     }
+    public override string Info => $"{Name} [{Level}][{Agility}]";
 }

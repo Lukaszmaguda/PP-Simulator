@@ -7,12 +7,7 @@ public class Orc : Creature
     public int Rage
     {
         get => rage;
-        set
-        {
-            if (value < 0) rage = 0;
-            else if (value > 10) rage = 10;
-            else rage = value;
-        }
+        set => rage = Validator.Limiter(value, 0, 10);
     }
 
     public Orc() { }
@@ -38,4 +33,5 @@ public class Orc : Creature
             if (rage < 10) rage++;
         }
     }
+    public override string Info => $"{Name} [{Level}][{Rage}]";
 }
