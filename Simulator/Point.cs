@@ -1,4 +1,4 @@
-﻿using Simulator;
+﻿namespace Simulator;
 
 public readonly struct Point
 {
@@ -13,6 +13,7 @@ public readonly struct Point
             Direction.Down => new Point(X, Y - 1),
             Direction.Right => new Point(X + 1, Y),
             Direction.Left => new Point(X - 1, Y),
+            _ => this
         };
 }
 
@@ -20,9 +21,11 @@ public readonly struct Point
     {
         return direction switch
         {
-            Direction.Right => new Point(X + 1, Y-1),
-            Direction.Left => new Point(X-1 , Y +1),
-
+            Direction.Up => new Point(X + 1, Y + 1),
+            Direction.Right => new Point(X + 1, Y - 1),
+            Direction.Down => new Point(X - 1, Y - 1),
+            Direction.Left => new Point(X - 1, Y + 1),
+            _ => this
         };
     }
 }

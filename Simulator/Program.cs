@@ -4,11 +4,12 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Starting Simulator!\n");
-        Lab4a();
-        Creature c = new Elf("Elandor", 5, 3);
-        Console.WriteLine(c);  // ELF: Elandor [5]
-        Lab4b();
+        //Console.WriteLine("Starting Simulator!\n");
+        //Lab4a();
+        //Creature c = new Elf("Elandor", 5, 3);
+        //Console.WriteLine(c);  // ELF: Elandor [5]
+        //Lab4b();
+        Lab5a();
     }
 
     static void Lab4a()
@@ -61,4 +62,33 @@ internal class Program
             ORC: Morgash [6][4]
         */
     }
+
+    public static void Lab5a()
+    {  
+            Rectangle rect1 = new Rectangle(5, 5, 10, 10);
+            Console.WriteLine(rect1); // (5, 5):(10, 10)
+
+            Rectangle rect2 = new Rectangle(10, 10, 5, 5);
+            Console.WriteLine(rect2); // (5, 5):(10, 10)
+
+            Point p1 = new Point(2, 2);
+            Point p2 = new Point(8, 8);
+            Rectangle rect3 = new Rectangle(p1, p2);
+            Console.WriteLine(rect3); // (2, 2):(8, 8)
+
+            try
+            {
+                Rectangle rect4 = new Rectangle(1, 1, 1, 5);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Wyjątek: {ex.Message}");
+            }
+
+            Point testPoint1 = new Point(6, 6);
+            Point testPoint2 = new Point(11, 11);
+            Console.WriteLine($"Czy rect1 zawiera punkt (6, 6)? {rect1.Contains(testPoint1)}"); // true
+            Console.WriteLine($"Czy rect1 zawiera punkt (11, 11)? {rect1.Contains(testPoint2)}"); // false
+    }
+
 }
