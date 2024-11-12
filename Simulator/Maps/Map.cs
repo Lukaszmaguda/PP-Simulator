@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿namespace Simulator.Maps;
+
+/// <summary>
 /// Map of points.
 /// </summary>
 public abstract class Map
@@ -22,7 +24,7 @@ public abstract class Map
     /// Next diagonal position to the point in a given direction 
     /// rotated 45 degrees clockwise.
     /// </summary>
-    / <param name="p">Starting point.</param>
+    /// <param name="p">Starting point.</param>
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);

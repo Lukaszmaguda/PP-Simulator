@@ -11,7 +11,7 @@ public static class Validator
 
     public static string Shortener(string value, int min, int max, char placeholder)
     {
-        if (value.Length > max) return value.Substring(0, max).TrimEnd() + placeholder;
+        if (value.Length > max) return value.Substring(0, max).TrimEnd();
         if (value.Length < min) return value.PadRight(min, placeholder);
         return value.Trim();
     }

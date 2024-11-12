@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
+
+namespace Simulator;
 
 internal class Program
 {
@@ -10,6 +12,7 @@ internal class Program
         //Console.WriteLine(c);  // ELF: Elandor [5]
         //Lab4b();
         Lab5a();
+        Lab5b();
     }
 
     static void Lab4a()
@@ -90,5 +93,27 @@ internal class Program
             Console.WriteLine($"Czy rect1 zawiera punkt (6, 6)? {rect1.Contains(testPoint1)}"); // true
             Console.WriteLine($"Czy rect1 zawiera punkt (11, 11)? {rect1.Contains(testPoint2)}"); // false
     }
+    public static void Lab5b()
+    {
 
+            SmallSquareMap map = new SmallSquareMap(10);
+            Console.WriteLine($"Rozmiar mapy: {map.Size}");
+
+            try
+            {
+                SmallSquareMap invalidMap = new SmallSquareMap(3);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine($"Błąd: {ex.Message}");
+            }
+
+            Console.WriteLine(map.Exist(new Point(0, 0)));  // True
+            Console.WriteLine(map.Exist(new Point(9, 9)));  // True
+            Console.WriteLine(map.Exist(new Point(10, 10))); // False
+
+            Point p = new(5, 5);
+            Console.WriteLine(map.Next(p, Direction.Right)); // (6, 5)
+            Console.WriteLine(map.NextDiagonal(p, Direction.Right)); // (6, 4)
+    }
 }
