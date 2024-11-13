@@ -20,7 +20,7 @@ public abstract class Creature
         get => level;
         init => level = Validator.Limiter(value, 1, 10);
     }
-    public abstract void SayHi();
+    public abstract string Greeting();
 
     public void Upgrade()
     {
@@ -41,23 +41,20 @@ public abstract class Creature
 
 
 
-    public void Go(Direction direction)
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+
+    public string[] Go(Direction[] directions)
     {
-        string whatDirection = direction.ToString().ToLower();
-        Console.WriteLine($"{name} goes {whatDirection}");
-    }
-    public void Go(Direction[] directions)
-    {
-        foreach (Direction direction in directions)
+        var result = new string[directions.Length];
+        for (int i=0; i < directions.Length; i++)
         {
-            Go(direction);
+            result[i] = Go(directions[i]);
         }
+        return result;
     }
-    public void Go(string directions)
-    {
-        Direction[] directionParse = DirectionParser.Parse(directions);
-        Go(directionParse);
-    }
+    public string[] Go(string directions) =>
+        Go(DirectionParser.Parse(directions));
+
 }
 
 
