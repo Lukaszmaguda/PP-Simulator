@@ -6,6 +6,11 @@
 public abstract class Map
 {
 
+    //Add(Creature, Point)
+    //Remove(Creature, Point)
+    //Move()
+    //At(Point) albo x, y
+
     public int SizeX { get; }
     public int SizeY { get; }
 
