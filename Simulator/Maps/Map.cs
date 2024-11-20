@@ -5,6 +5,21 @@
 /// </summary>
 public abstract class Map
 {
+
+    public int SizeX { get; }
+    public int SizeY { get; }
+
+    protected Map(int sizeX, int sizeY)
+    {
+        if (sizeX < 5 || sizeY < 5)
+        {
+            throw new ArgumentException(nameof(sizeX), "Map too small");
+        }
+        SizeX = sizeX;
+        SizeY = sizeY;
+
+        
+    }
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>

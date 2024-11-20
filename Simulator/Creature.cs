@@ -1,4 +1,5 @@
-﻿namespace Simulator;
+﻿
+namespace Simulator;
 
 public abstract class Creature
 {
@@ -54,6 +55,7 @@ public abstract class Creature
     }
     public string[] Go(string directions) =>
         Go(DirectionParser.Parse(directions));
+
 
 }
 
