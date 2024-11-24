@@ -6,13 +6,18 @@ namespace Simulator;
 public abstract class Creature
 {
     public Map? Map { get; private set; }
-    public Point Position { get; private set;}
-
-    public void InitMapAndPosition(Map map, Point position) { }
-
-
+    public Point Position { get; private set; }
     private string name = "Unknown";
     private int level = 1;
+
+    public void InitMapAndPosition(Map map, Point position) {
+        if (Map != null)
+            throw new InvalidOperationException("Stwór już ma przypisaną mapę.");
+
+        Map = map;
+        Position = position;
+        map.Add(this, position);
+    }
 
     public string Name
     {
@@ -50,26 +55,16 @@ public abstract class Creature
 
 
 
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
-
-    public string[] Go(Direction[] directions)
+    public void Go(Direction direction)
     {
-        //Map.Next()
-        //Map.Next() === Position -> bez ruchu
+        if (Map == null)
+            throw new InvalidOperationException("Stwór nie jest przypisany do mapy.");
 
-        //Map.Move()
-        //out
-        var result = new string[directions.Length];
-        for (int i=0; i < directions.Length; i++)
-        {
-            result[i] = Go(directions[i]);
-        }
-        return result;
+        Point nextPosition = Map.Next(Position, direction);
+
+        Map.Move(this, Position, nextPosition);
+        Position = nextPosition;
     }
-    public string[] Go(string directions) =>
-        Go(DirectionParser.Parse(directions));
-
 
 }
-
 

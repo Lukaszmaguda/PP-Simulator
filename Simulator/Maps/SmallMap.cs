@@ -3,7 +3,7 @@
 public abstract class SmallMap : Map
 {
 
-    List<Creature>? [,]_fields;
+    List<Creature>?[,] _fields;
     protected SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         if (sizeX > 20)
@@ -14,5 +14,7 @@ public abstract class SmallMap : Map
         {
             throw new ArgumentOutOfRangeException(nameof(sizeY), "Map too high");
         }
+        _fields = new List<Creature>?[sizeX, sizeY];
     }
+    protected override List<Creature>?[,] Fields => _fields;
 }
