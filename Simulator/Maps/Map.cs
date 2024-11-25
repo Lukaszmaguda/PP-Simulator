@@ -69,10 +69,6 @@ public abstract class Map
                 Fields[p.X, p.Y] = null;
             }
         }
-        else
-        {
-            throw new ArgumentException("Punkt poza granicami mapy", nameof(p));
-        }
     }
 
     public void Move(Creature creature, Point from, Point to)
