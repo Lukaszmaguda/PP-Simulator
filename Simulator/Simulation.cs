@@ -43,6 +43,13 @@ public class Simulation
     public string CurrentMoveName { get; private set; }
 
     /// <summary>
+    /// Index of the current move in the moves string.
+    /// </summary>
+    private int CurrentMoveIndex = 0;
+
+    private int TotalMovesDone = 0;
+
+    /// <summary>
     /// Simulation constructor.
     /// Throw errors:
     /// if creatures' list is empty,
@@ -52,9 +59,11 @@ public class Simulation
     public Simulation(Map map, List<Creature> creatures,
         List<Point> positions, string moves)
     {
-        if (creatures.Count == 0) throw new ArgumentException("Lista stworów nie może być pusta.", nameof(creatures));
+        if (creatures.Count == 0)
+            throw new ArgumentException("Lista stworów nie może być pusta.", nameof(creatures));
 
-        if (creatures.Count != positions.Count) throw new ArgumentException("Liczba stworów musi odpowiadać liczbie pozycji początkowych.", nameof(positions));
+        if (creatures.Count != positions.Count)
+            throw new ArgumentException("Liczba stworów musi odpowiadać liczbie pozycji początkowych.", nameof(positions));
 
         Map = map;
         Creatures = creatures;
@@ -62,7 +71,7 @@ public class Simulation
         Moves = moves;
 
         CurrentCreature = Creatures[0];
-        CurrentMoveName = Moves[0].ToString().ToLower();
+        CurrentMoveName = Moves[CurrentMoveIndex].ToString().ToLower();
     }
     /// <summary>
     /// Makes one move of current creature in current direction.
@@ -75,33 +84,32 @@ public class Simulation
             throw new InvalidOperationException("Symulacja już się skończyła.");
         }
 
-        var directions = DirectionParser.Parse(CurrentMoveName);
+        int currentCreatureIndex = CurrentMoveIndex % Creatures.Count;
+        Creature currentCreature = Creatures[currentCreatureIndex];
 
+        int moveIndexForCreature = CurrentMoveIndex % Moves.Length;
+        string currentMoveName = Moves[moveIndexForCreature].ToString().ToLower();
+
+        var directions = DirectionParser.Parse(currentMoveName);
         if (directions.Count == 0)
         {
-            throw new ArgumentException($"Niepoprawny kierunek: {CurrentMoveName}");
+            throw new ArgumentException($"Niepoprawny kierunek: {currentMoveName}");
         }
 
         var direction = directions[0];
-
-        var currentPosition = Positions[Creatures.IndexOf(CurrentCreature)];
+        var currentPosition = Positions[currentCreatureIndex];
 
         var newPosition = Map.Next(currentPosition, direction);
 
-        Map.Move(CurrentCreature, currentPosition, newPosition);
+        Map.Move(currentCreature, currentPosition, newPosition);
+        Positions[currentCreatureIndex] = newPosition;
 
-        Positions[Creatures.IndexOf(CurrentCreature)] = newPosition;
+        CurrentMoveIndex++;
+        TotalMovesDone++;
 
-        int nextCreatureIndex = (Creatures.IndexOf(CurrentCreature) + 1) % Creatures.Count;
-        CurrentCreature = Creatures[nextCreatureIndex];
-
-        CurrentMoveName = Moves[nextCreatureIndex].ToString().ToLower();
-
-        if (nextCreatureIndex == 0 && Moves.Length <= Creatures.Count)
+        if (TotalMovesDone >= Moves.Length)
         {
             Finished = true;
         }
     }
-
-
 }
