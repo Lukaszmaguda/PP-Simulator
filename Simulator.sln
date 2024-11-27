@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Runner", "Runner\Runner.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSimulator", "TestSimulator\TestSimulator.csproj", "{C4F0341E-6A16-47C4-BD86-075FBDE8A1CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimConsole", "SimConsole\SimConsole.csproj", "{9F59A45F-B169-4715-9487-8C9C0B98A6D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{C4F0341E-6A16-47C4-BD86-075FBDE8A1CB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4F0341E-6A16-47C4-BD86-075FBDE8A1CB}.Release|x64.ActiveCfg = Release|Any CPU
 		{C4F0341E-6A16-47C4-BD86-075FBDE8A1CB}.Release|x64.Build.0 = Release|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Debug|x64.Build.0 = Debug|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{9F59A45F-B169-4715-9487-8C9C0B98A6D0}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

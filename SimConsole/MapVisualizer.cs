@@ -89,6 +89,11 @@ public class MapVisualizer
         }
         Console.WriteLine(Box.BottomRight);
     }
+
+    //internal void Draw(List<IMappable> mappables, List<Point> points)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }
 
 

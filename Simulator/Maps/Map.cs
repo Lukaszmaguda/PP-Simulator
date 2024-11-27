@@ -5,13 +5,9 @@
 /// </summary>
 public abstract class Map
 {
-    //Add(Creature, Point)
-    //Remove(Creature, Point)
-    //Move()
-    //At(Point) albo x, y
     public int SizeX { get; }
     public int SizeY { get; }
-    protected abstract List<Creature>?[,] Fields { get; }
+    protected abstract List<IMappable>?[,] Fields { get; }
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5 || sizeY < 5)
@@ -44,25 +40,25 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public void Add(Creature creature, Point p)
+    public void Add(IMappable mappable, Point p)
     {
         if (Exist(p))
         {
-            Fields[p.X, p.Y] ??= new List<Creature>();
-            Fields[p.X, p.Y]?.Add(creature);
+            Fields[p.X, p.Y] ??= new List<IMappable>();
+            Fields[p.X, p.Y]?.Add(mappable);
         }
         else
         {
             throw new ArgumentException("Punkt poza granicami mapy", nameof(p));
         }
     }
-    public void Remove(Creature creature, Point p)
+    public void Remove(IMappable mappable, Point p)
     {
         var field = Fields[p.X, p.Y];
 
         if (field != null)
         {
-            field.Remove(creature);
+            field.Remove(mappable);
 
             if (field.Count == 0)
             {
@@ -71,21 +67,21 @@ public abstract class Map
         }
     }
 
-    public void Move(Creature creature, Point from, Point to)
+    public void Move(IMappable mappable, Point from, Point to)
     {
-        Remove(creature, from);
-        Add(creature, to);
+        Remove(mappable, from);
+        Add(mappable, to);
     }
 
-    public List<Creature> At(Point p)
+    public List<IMappable> At(Point p)
     {
         if (Exist(p))
         {
-            return Fields[p.X, p.Y] ?? new List<Creature>();
+            return Fields[p.X, p.Y] ?? new List<IMappable>();
         }
         else {
             throw new ArgumentException("Punkt poza granicami mapy", nameof(p));
         }
     }
-    public List<Creature> At(int x, int y) => At(new Point(x, y));
+    public List<IMappable> At(int x, int y) => At(new Point(x, y));
 }

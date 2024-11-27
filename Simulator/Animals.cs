@@ -1,5 +1,4 @@
-﻿
-namespace Simulator;
+﻿namespace Simulator;
 
 public class Animals
 {
