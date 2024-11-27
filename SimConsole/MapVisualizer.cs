@@ -59,6 +59,18 @@ public class MapVisualizer
                     {
                         Console.Write("E");
                     }
+                    else if (creature is Birds)
+                    {
+                        Console.Write("B");
+                    }
+                    else if (creature is Birds)
+                    {
+                        Console.Write("b");
+                    }
+                    else if (creature is Animals)
+                    {
+                        Console.Write("A")
+                    }
                 }
                 else
                 {

@@ -1,6 +1,8 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
 
-public class Animals
+namespace Simulator;
+
+public class Animals : IMappable
 {
     private string description = "Unknown";
     public string Description
