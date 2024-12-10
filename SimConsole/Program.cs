@@ -11,7 +11,7 @@ internal class Program
         Console.WriteLine("Starting Simulator!\n");
         Console.OutputEncoding = Encoding.UTF8;
 
-        SmallTorusMap map = new(8, 6);
+        BigBounceMap map = new(8, 6);
 
         var mappables = new List<IMappable>
         {
@@ -31,7 +31,7 @@ internal class Program
             new Point(2, 2)  
         };
 
-        string moves = "dlruudldrulldr";
+        string moves = "dldruulurddllurrddll";
 
         Simulation simulation = new(map, mappables, points, moves);
 

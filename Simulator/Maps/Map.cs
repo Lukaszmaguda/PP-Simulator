@@ -40,7 +40,7 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public void Add(IMappable mappable, Point p)
+    public virtual void Add(IMappable mappable, Point p)
     {
         if (Exist(p))
         {
@@ -52,7 +52,7 @@ public abstract class Map
             throw new ArgumentException("Punkt poza granicami mapy", nameof(p));
         }
     }
-    public void Remove(IMappable mappable, Point p)
+    public virtual void Remove(IMappable mappable, Point p)
     {
         var field = Fields[p.X, p.Y];
 
@@ -73,7 +73,7 @@ public abstract class Map
         Add(mappable, to);
     }
 
-    public List<IMappable> At(Point p)
+    public virtual List<IMappable> At(Point p)
     {
         if (Exist(p))
         {
