@@ -13,7 +13,7 @@ public class MapVisualizer
         _map = map;
     }
 
-    public void Draw(List<Creature> creatures, List<Point> positions)
+     public void Draw()
     {
         Console.Clear();
 
@@ -35,14 +35,7 @@ public class MapVisualizer
             {
                 var position = new Point(x, y);
 
-                var creaturesAtPosition = new List<Creature>();
-                for (int i = 0; i < creatures.Count; i++)
-                {
-                    if (positions[i].Equals(position))
-                    {
-                        creaturesAtPosition.Add(creatures[i]);
-                    }
-                }
+                var creaturesAtPosition = _map.At(new Point(x, y));
 
                 if (creaturesAtPosition.Count > 1)
                 {
@@ -51,26 +44,7 @@ public class MapVisualizer
                 else if (creaturesAtPosition.Count == 1)
                 {
                     var creature = creaturesAtPosition[0];
-                    if (creature is Orc)
-                    {
-                        Console.Write("O");
-                    }
-                    else if (creature is Elf)
-                    {
-                        Console.Write("E");
-                    }
-                    else if (creature is Birds)
-                    {
-                        Console.Write("B");
-                    }
-                    else if (creature is Birds)
-                    {
-                        Console.Write("b");
-                    }
-                    else if (creature is Animals)
-                    {
-                        Console.Write("A")
-                    }
+                    Console.Write($"{creature.Symbol}");
                 }
                 else
                 {
@@ -102,10 +76,6 @@ public class MapVisualizer
         Console.WriteLine(Box.BottomRight);
     }
 
-    //internal void Draw(List<IMappable> mappables, List<Point> points)
-    //{
-    //    throw new NotImplementedException();
-    //}
 }
 
 

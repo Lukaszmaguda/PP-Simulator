@@ -8,5 +8,9 @@ namespace Simulator.Maps;
 
 public interface IMappable
 {
-
+    Point Position { get; }
+    Map Map { get; }
+    char Symbol { get; }
+    void InitMapAndPosition(Map map, Point position);
+    void Go(Direction direction);
 }

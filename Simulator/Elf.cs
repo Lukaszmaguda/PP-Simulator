@@ -37,4 +37,6 @@ public class Elf : Creature
         }
     }
     public override string Info => $"{Name} [{Level}][{Agility}]";
+    public override char Symbol => 'E';
+
 }

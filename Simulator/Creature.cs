@@ -50,6 +50,7 @@ public abstract class Creature : IMappable
     public abstract string Info { get; }
     public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
     public abstract int Power { get; }
+    public abstract char Symbol { get; }
 
     public void Go(Direction direction)
     {
