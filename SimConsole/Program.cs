@@ -17,39 +17,57 @@ internal class Program
         {
             new Elf("Elandor"),
             new Orc("Gorbag"),
-            new Animals("Rabbits", 5), 
-            new Birds("Eagles", 4, true), 
-            new Birds("Ostriches", 3, false) 
+            new Animals("Rabbits", 5),
+            new Birds("Eagles", 4, true),
+            new Birds("Ostriches", 3, false)
         };
 
         var points = new List<Point>
         {
-            new Point(1, 1), 
-            new Point(3, 3), 
-            new Point(0, 4), 
-            new Point(6, 0), 
-            new Point(2, 2)  
+            new Point(1, 1),
+            new Point(3, 3),
+            new Point(0, 4),
+            new Point(6, 0),
+            new Point(2, 2)
         };
 
         string moves = "dldruulurddllurrddll";
 
-        Simulation simulation = new(map, mappables, points, moves);
-
-        MapVisualizer mapVisualizer = new(simulation.Map);
+        Simulation simulationForVisualization = new(map, mappables, points, moves);
+        MapVisualizer mapVisualizer = new(simulationForVisualization.Map);
 
         Console.WriteLine("Press Enter to start simulation...");
         Console.ReadLine();
 
-        while (!simulation.Finished)
+        while (!simulationForVisualization.Finished)
         {
-            mapVisualizer.Draw(); 
+            mapVisualizer.Draw();
 
-            Console.WriteLine("\nNaciśnij dowolny klawisz, aby wykonać kolejny ruch...");
+            Console.WriteLine($"\nObiekt: {simulationForVisualization.CurrentIMappable.Symbol}, Ruch: {simulationForVisualization.CurrentMoveName}");
+            Console.WriteLine("Naciśnij dowolny klawisz, aby wykonać kolejny ruch...");
             Console.ReadKey(true);
 
-            simulation.Turn(); 
+            simulationForVisualization.Turn();
         }
 
-        Console.WriteLine("\nSymulacja zakończona.");
+        Console.WriteLine("\nSymulacja zakończona. Uruchamiam historię...");
+
+        Simulation simulationForHistory = new(map, mappables, points, moves);
+        SimulationHistory history = new(simulationForHistory);
+
+        history.RunSimulation();
+
+        foreach (int turn in new[] { 5, 10, 15, 20 })
+        {
+            try
+            {
+                Console.WriteLine($"\nState at turn {turn}:");
+                history.GetStateAtTurn(turn).DisplayState();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine($"Turn {turn} is out of range.");
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Simulator.Maps;
 using Simulator;
 
+namespace Simulator;
+
 public class Simulation
 {
     /// <summary>
@@ -77,39 +79,46 @@ public class Simulation
     /// Makes one move of current mappable in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
-    public void Turn()
+public void Turn()
+{
+    if (Finished)
     {
-        if (Finished)
-        {
-            throw new InvalidOperationException("Symulacja już się skończyła.");
-        }
-
-        int currentIMappableIndex = CurrentMoveIndex % IMappables.Count;
-        IMappable currentIMappable = IMappables[currentIMappableIndex];
-
-        int moveIndexForIMappable = CurrentMoveIndex % Moves.Length;
-        string currentMoveName = Moves[moveIndexForIMappable].ToString().ToLower();
-
-        var directions = DirectionParser.Parse(currentMoveName);
-        if (directions.Count == 0)
-        {
-            throw new ArgumentException($"Niepoprawny kierunek: {currentMoveName}");
-        }
-
-        var direction = directions[0];
-        var currentPosition = Positions[currentIMappableIndex];
-
-        var newPosition = Map.Next(currentPosition, direction);
-
-        Map.Move(currentIMappable, currentPosition, newPosition);
-        Positions[currentIMappableIndex] = newPosition;
-
-        CurrentMoveIndex++;
-        TotalMovesDone++;
-
-        if (TotalMovesDone >= Moves.Length)
-        {
-            Finished = true;
-        }
+        throw new InvalidOperationException("Symulacja już się skończyła.");
     }
+
+    int currentIMappableIndex = TotalMovesDone % IMappables.Count; 
+    IMappable currentIMappable = IMappables[currentIMappableIndex];
+
+    int moveIndexForIMappable = TotalMovesDone % Moves.Length;
+    string currentMoveName = Moves[moveIndexForIMappable].ToString().ToLower();
+
+    var directions = DirectionParser.Parse(currentMoveName);
+    if (directions.Count == 0)
+    {
+        Console.WriteLine($"Ignoruję niepoprawny kierunek: {currentMoveName}");
+        TotalMovesDone++;
+        return;
+    }
+
+    var direction = directions[0];
+    var currentPosition = Positions[currentIMappableIndex];
+
+    var newPosition = Map.Next(currentPosition, direction);
+
+    Map.Move(currentIMappable, currentPosition, newPosition);
+    Positions[currentIMappableIndex] = newPosition;
+
+    CurrentMoveIndex = (CurrentMoveIndex + 1) % Moves.Length;
+    TotalMovesDone++;
+
+    if (TotalMovesDone >= Moves.Length)
+    {
+        Finished = true;
+    }
+
+    CurrentIMappable = IMappables[currentIMappableIndex];
+    CurrentMoveName = currentMoveName;
+}
+
+
 }
