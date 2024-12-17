@@ -62,11 +62,6 @@ internal class Program
             Console.WriteLine($"Tura {i}:");
             Console.WriteLine($"  Obiekt: {log.Mappable}");
             Console.WriteLine($"  Ruch: {log.Move}");
-            Console.WriteLine($"  Symbole na mapie:");
-            foreach (var kvp in log.Symbols)
-            {
-                Console.WriteLine($"    Pozycja: {kvp.Key}, Symbol: {kvp.Value}");
-            }
             Console.WriteLine();
         }
 
