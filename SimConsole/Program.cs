@@ -55,19 +55,20 @@ internal class Program
         Simulation simulationForHistory = new(map, mappables, points, moves);
         SimulationHistory history = new(simulationForHistory);
 
-        history.RunSimulation();
-
-        foreach (int turn in new[] { 5, 10, 15, 20 })
+                Console.WriteLine("\nHistoria symulacji:");
+        for (int i = 0; i < history.TurnLogs.Count; i++)
         {
-            try
+            var log = history.TurnLogs[i];
+            Console.WriteLine($"Tura {i}:");
+            Console.WriteLine($"  Obiekt: {log.Mappable}");
+            Console.WriteLine($"  Ruch: {log.Move}");
+            Console.WriteLine($"  Symbole na mapie:");
+            foreach (var kvp in log.Symbols)
             {
-                Console.WriteLine($"\nState at turn {turn}:");
-                history.GetStateAtTurn(turn).DisplayState();
+                Console.WriteLine($"    Pozycja: {kvp.Key}, Symbol: {kvp.Value}");
             }
-            catch (ArgumentOutOfRangeException)
-            {
-                Console.WriteLine($"Turn {turn} is out of range.");
-            }
+            Console.WriteLine();
         }
+
     }
 }

@@ -1,51 +1,49 @@
-﻿using Simulator;
+﻿using Simulator.Maps;
+
 namespace Simulator;
 
 public class SimulationHistory
 {
-    private readonly List<SimulationState> _history;
-    private readonly Simulation _simulation;
+    private Simulation _simulation { get; }
+    public int SizeX { get; }
+    public int SizeY { get; }
+    public List<SimulationTurnLog> TurnLogs { get; } = [];
+    // store starting positions at index 0
 
     public SimulationHistory(Simulation simulation)
     {
-        _simulation = simulation;
-        _history = new List<SimulationState>();
-
-        SaveState();
+        _simulation = simulation ??
+            throw new ArgumentNullException(nameof(simulation));
+        SizeX = _simulation.Map.SizeX;
+        SizeY = _simulation.Map.SizeY;
+        Run();
     }
 
-    public void RunSimulation()
+    private void Run()
     {
+        TurnLogs.Add(CreateTurnLog());
+
         while (!_simulation.Finished)
         {
             _simulation.Turn();
-            SaveState();
+            TurnLogs.Add(CreateTurnLog());
         }
     }
 
-    public SimulationState GetStateAtTurn(int turn)
+    private SimulationTurnLog CreateTurnLog()
     {
-        if (turn < 1 || turn > _history.Count)
+        var symbols = new Dictionary<Point, char>();
+
+        foreach (var position in _simulation.Positions)
         {
-            throw new ArgumentOutOfRangeException(nameof(turn), "Invalid turn number.");
+            var mappable = _simulation.IMappables[_simulation.Positions.IndexOf(position)];
+            symbols[position] = mappable.Symbol;
         }
-
-        return _history[turn - 1];
+        return new SimulationTurnLog
+        {
+            Mappable = _simulation.CurrentIMappable.ToString(),
+            Move = _simulation.CurrentMoveName,
+            Symbols = symbols
+        };
     }
-
-    public void SaveState()
-    {
-        var currentIMappableSymbol = _simulation.CurrentIMappable.Symbol; 
-        var currentMove = _simulation.CurrentMoveName;
-
-        var state = new SimulationState(
-            _simulation.Positions.Select(p => new Point(p.X, p.Y)).ToList(),
-            _simulation.IMappables.Select(m => m.Symbol).ToList(),
-            currentIMappableSymbol,  
-            currentMove           
-        );
-
-        _history.Add(state);
-    }
-
 }

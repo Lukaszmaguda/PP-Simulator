@@ -118,7 +118,5 @@ public void Turn()
 
     CurrentIMappable = IMappables[currentIMappableIndex];
     CurrentMoveName = currentMoveName;
-}
-
-
+    }
 }
