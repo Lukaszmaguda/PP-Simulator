@@ -7,7 +7,7 @@ public abstract class Map
 {
     public int SizeX { get; }
     public int SizeY { get; }
-    protected abstract List<IMappable>?[,] Fields { get; }
+    private readonly Dictionary<Point, List<IMappable>> _fields = new();
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5 || sizeY < 5)
@@ -42,28 +42,22 @@ public abstract class Map
 
     public virtual void Add(IMappable mappable, Point p)
     {
-        if (Exist(p))
-        {
-            Fields[p.X, p.Y] ??= new List<IMappable>();
-            Fields[p.X, p.Y]?.Add(mappable);
-        }
-        else
-        {
+        if (!Exist(p))
             throw new ArgumentException("Punkt poza granicami mapy", nameof(p));
-        }
+
+        if (!_fields.ContainsKey(p))
+            _fields[p] = new List<IMappable>();
+
+        _fields[p].Add(mappable);
     }
     public virtual void Remove(IMappable mappable, Point p)
     {
-        var field = Fields[p.X, p.Y];
-
-        if (field != null)
+        if (_fields.ContainsKey(p))
         {
-            field.Remove(mappable);
+            _fields[p].Remove(mappable);
 
-            if (field.Count == 0)
-            {
-                Fields[p.X, p.Y] = null;
-            }
+            if (_fields[p].Count == 0)
+                _fields.Remove(p);
         }
     }
 
@@ -75,13 +69,9 @@ public abstract class Map
 
     public virtual List<IMappable> At(Point p)
     {
-        if (Exist(p))
-        {
-            return Fields[p.X, p.Y] ?? new List<IMappable>();
-        }
-        else {
-            throw new ArgumentException("Punkt poza granicami mapy", nameof(p));
-        }
+        return _fields.ContainsKey(p) ? new List<IMappable>(_fields[p]) : new List<IMappable>();
     }
+
     public List<IMappable> At(int x, int y) => At(new Point(x, y));
+
 }
