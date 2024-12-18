@@ -34,16 +34,14 @@ namespace SimConsole
 
             string moves = "dldruulurddllurrddll";
 
-            Simulation simulationForVisualization = new(map, mappables, points, moves);
-            MapVisualizer mapVisualizer = new(simulationForVisualization.Map);
+            Simulation simulation = new(map, mappables, points, moves);
+            MapVisualizer mapVisualizer = new(simulation.Map);
+            SimulationHistory history = new(simulation);
+            LogVisualizer logVisualizer = new(history);
 
             Console.WriteLine("Press Enter to start simulation...");
             Console.ReadLine();
 
-            Simulation simulationForHistory = new(map, mappables, points, moves);
-            SimulationHistory history = new(simulationForHistory);
-
-            LogVisualizer logVisualizer = new LogVisualizer(history);
 
             Console.WriteLine("\nHistoria symulacji:");
             for (int i = 0; i < history.TurnLogs.Count; i++)

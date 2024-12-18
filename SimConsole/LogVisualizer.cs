@@ -81,5 +81,5 @@ namespace SimConsole
         }
     }
 }
-//do poprawy
+
 
