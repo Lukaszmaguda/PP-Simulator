@@ -75,7 +75,4 @@ public class MapVisualizer
         }
         Console.WriteLine(Box.BottomRight);
     }
-
 }
-
-
