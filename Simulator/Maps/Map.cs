@@ -51,8 +51,15 @@ public abstract class Map
         if (!_fields.ContainsKey(p))
             _fields[p] = new List<IMappable>();
 
+        if (_fields[p].Contains(mappable))
+        {
+            return;
+        }
+
         _fields[p].Add(mappable);
     }
+
+
     public virtual void Remove(IMappable mappable, Point p)
     {
         if (_fields.ContainsKey(p))

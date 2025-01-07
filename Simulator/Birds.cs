@@ -20,7 +20,7 @@ public class Birds : Animals
         if (Map == null)
             throw new InvalidOperationException("Ptak nie jest przypisany do mapy.");
 
-        Point nextPosition = CanFly ? Map.Next(Map.Next(Position, direction), direction) : Position.NextDiagonal(direction);                  
+        Point nextPosition = CanFly ? Map.Next(Map.Next(Position, direction), direction) : Position.NextDiagonal(direction);
 
         if (Map.Exist(nextPosition))
         {
