@@ -1,0 +1,63 @@
+﻿@page
+@model SimWeb.Pages.SimulationModel
+@{
+    ViewData["Title"] = "Symulacja";
+}
+<head>
+    <link rel="stylesheet" href="~/css/simulation.css" asp-append-version="true" />
+</head>
+<body>
+    <main>
+        <div class="map-header">
+            <form method="post" asp-page-handler="Previous">
+                <button type="submit">&#x219E;</button>
+                @Html.AntiForgeryToken()
+            </form>
+            <div class="turn">
+                Tura @Model.CurrentTurn
+            </div>
+            <form method="post" asp-page-handler="Next">
+                <button type="submit">&#x21A0;</button>
+                @Html.AntiForgeryToken()
+            </form>
+        </div>
+        <div class="simulation-container">
+            <div class="row-numbers">
+                @for (int row = 4; row >= 0; row--)
+                {
+                    <div>@row</div>
+                }
+            </div>
+
+            <div class="map">
+                @for (int row = 4; row >= 0; row--)
+                {
+                    @foreach (var cell in Model.MapGrid[row])
+                    {
+                        <div>
+                            @if (cell.Creatures != null && cell.Creatures.Any())
+                            {
+                                @Html.Raw(Model.GetImageSource(cell.Creatures))
+                            }
+                            else
+                            {
+                                <div class="empty-cell"></div>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-numbers">
+            @for (int col = 0; col < 7; col++)
+            {
+                <div>@col</div>
+            }
+        </div>
+        <div class="move-details">
+            @Model.CurrentMoveDetails
+        </div>
+
+
+    </main>
+</body>
